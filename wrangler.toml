@@ -1,0 +1,15 @@
+name = "veritymeter-cron2"
+main = "index.js"
+compatibility_date = "2026-06-01"
+
+# 東洋経済・文春・新潮の3媒体を担当（8分間隔）
+[triggers]
+crons = [
+  "40 21 * * *",  # toyokeizai  JST 6:40
+  "48 21 * * *",  # bunshun     JST 6:48
+  "56 21 * * *",  # shincho     JST 6:56
+]
+
+[[kv_namespaces]]
+binding = "NEWS_KV"
+id = "9a32d6d876f84f1d83ec92a9a2ed0281"
