@@ -12,4 +12,4 @@ crons = [
 
 [[kv_namespaces]]
 binding = "NEWS_KV"
-id = "9a32d6d876f84f1d83ec92a9a2ed0281"
+id = "3d335e51fee5461988205d8d61456acf"
