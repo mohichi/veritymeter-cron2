@@ -28,14 +28,15 @@ const CRON_SCHEDULE = [
 ];
 
 async function fetchMediaNews(media, apiKey, retryCount = 0) {
-  const systemPrompt = `ニュース調査AIです。指定メディアの本日の主要記事を調査しJSONのみ返答。最初の文字は必ず「{」。コードブロックマーカー不要。
+  const systemPrompt = `あなたはニュース調査の専門AIです。指定されたメディアの本日の主要記事を必ずウェブ検索で見つけてJSONのみで返答してください。最初の文字は必ず「{」。コードブロックマーカー不要。
 
 JSON形式：
 {"articles":[{"title":"記事タイトル","url":"記事URL","excerpt":"1文要約(30字)","score":数値(0-100),"comment":"総評(40字)"}]}
 
-スコア：80-100=根拠明確、60-79=概ね妥当、40-59=憶測混在、20-39=根拠薄い、0-19=重大な問題
-タイトルにダブルクォートやシングルクォートが含まれる場合は削除またはスペースに置換すること。
-記事が見つからない場合は {"articles": []} を返すこと。最大2件まで。`;
+重要：
+- 必ず検索を実行して記事を見つけること。見つからないと判断する前に複数回検索すること。
+- タイトルにダブルクォートやシングルクォートが含まれる場合は削除またはスペースに置換すること。
+- 最大2件まで。本当に記事が見つからない場合のみ {"articles": []} を返すこと。`;
 
   try {
     const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
@@ -47,9 +48,9 @@ JSON形式：
       },
       body: JSON.stringify({
         model: "claude-haiku-4-5-20251001",
-        max_tokens: 800,
+        max_tokens: 1200,
         system: systemPrompt,
-        messages: [{ role: "user", content: `${media.name}（${media.domain}）の本日の主要記事を2件調査してください。` }],
+        messages: [{ role: "user", content: `${media.name}（サイト：${media.domain}）で本日掲載されている主要ニュース記事を検索して2件見つけてください。` }],
         tools: [{ type: "web_search_20250305", name: "web_search" }],
       }),
     });
