@@ -50,7 +50,7 @@ JSON形式：
         model: "claude-haiku-4-5-20251001",
         max_tokens: 1200,
         system: systemPrompt,
-        messages: [{ role: "user", content: `${media.name}（サイト：${media.domain}）で本日掲載されている主要ニュース記事を検索して2件見つけてください。` }],
+        messages: [{ role: "user", content: `${media.name}（サイト：${media.domain}）の最新の主要ニュース記事を検索して2件見つけてください。本日または直近の記事でお願いします。` }],
         tools: [{ type: "web_search_20250305", name: "web_search" }],
       }),
     });
