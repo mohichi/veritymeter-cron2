@@ -2,12 +2,13 @@ name = "veritymeter-cron2"
 main = "index.js"
 compatibility_date = "2026-06-01"
 
-# 東洋経済・文春・新潮の3媒体を担当（8分間隔）
+# 1Cronで2媒体を処理する設計（朝日+読売、日経+東洋経済、文春+新潮）
+# アカウント全体のCron上限（5個）のため、veritymeter-cronと合わせて2+3=5個の配分
 [triggers]
 crons = [
-  "40 21 * * *",  # toyokeizai  JST 6:40
-  "48 21 * * *",  # bunshun     JST 6:48
-  "56 21 * * *",  # shincho     JST 6:56
+  "32 21 * * *",  # 朝日・読売     JST 6:32
+  "48 21 * * *",  # 日経・東洋経済  JST 6:48
+  "4 22 * * *",   # 文春・新潮     JST 7:04
 ]
 
 [[kv_namespaces]]
